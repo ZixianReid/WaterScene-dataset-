@@ -66,7 +66,7 @@ class Visualization2D:
                                                                self.dataloader.t_camera_lidar,
                                                                self.dataloader.camera_projection_matrix,
                                                                self.dataloader.image.shape)
-        idx = radar[:, -1] != -1
+        idx = radar[:, -1] != 0
         radar = radar[idx]
         uvs = uvs[idx]
         plt.scatter(uvs[:, 0], uvs[:, 1], alpha=0.8, cmap='jet', marker="*")

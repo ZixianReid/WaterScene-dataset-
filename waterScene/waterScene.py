@@ -25,11 +25,12 @@ Constructor which based on a few parameters defines the locations of possible da
 
         # Automatically defined variables. The location of sub-folders can be customized here.
         # Current definitions are based on the recommended locations.
-        self.camera_dir = commonutils.mkDataDirs(self.root_dir, 'image_2')
+        self.camera_dir = commonutils.mkDataDirs(self.root_dir, 'image')
         self.radar_dir = commonutils.mkDataDirs(self.root_dir, 'radar')
         self.radar_calib_dir = commonutils.mkDataDirs(self.root_dir, 'calib')
 
-        self.label_dir = commonutils.mkDataDirs(self.root_dir, 'label_2')
+        self.label_dir = commonutils.mkDataDirs(self.root_dir, 'label_kitti')
+        self.label_voc_dir = commonutils.mkDataDirs(self.root_dir, 'label')
         self.split_dir = commonutils.mkDataDirs(self.root_dir, "ImageSets")
 
 

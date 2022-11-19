@@ -1,9 +1,10 @@
+import pandas
 from matplotlib import pyplot as plt
 import os
 import logging
 import numpy as np
 from .labels import FrameLabels
-
+import pandas as pd
 
 class DataLoader:
     def __init__(self, frame_number, source_location):
@@ -62,8 +63,10 @@ class DataLoader:
 
     def get_radar_data(self):
         try:
-            radar_file = os.path.join(self.source_location.radar_dir, f'{self.frame_number}.bin')
-            scan = np.fromfile(radar_file, dtype=np.float32).reshape(-1, 11)
+            radar_file = os.path.join(self.source_location.radar_dir, f'{self.frame_number}.csv')
+            scan = pandas.read_csv(radar_file, dtype=np.float32)
+            scan = scan[['x', 'y', 'z', 'rcs', 'doppler', 'u', 'v', 'label']]
+            return scan.to_numpy(dtype=np.float32)
 
         except FileNotFoundError:
             logging.error(f"{self.frame_number}.bin does not exist at location: {self.source_location.radar_dir}!")

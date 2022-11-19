@@ -4,29 +4,30 @@ import argparse
 import numpy as np
 import os
 import json
-
+from tqdm import tqdm
 
 def run(data_dir, out_dir):
     flowsc = WaterScene(root_dir=args.dataroot)
-    # os.mkdir(os.path.join(args.dataroot, "norm_info"))
+    os.mkdir(os.path.join(args.dataroot, "norm_info"))
     all_samples = [flowsc.getTrainFrame(), flowsc.getValtFrame(), flowsc.getTestFrame()]
     all_samples = sum(all_samples, [])
 
     # load per image norm info
-    # for samples in all_samples:
-    #     norm_info = {}
-    #     norm_save_path = os.path.join(args.dataroot, 'norm_info', samples + '.json')
-    #     frame = flowsc.loadFrame(samples)
-    #     im = np.copy(frame.image)
-    #     im = im.astype('float64')
-    #     means = im.mean(axis=(0, 1), dtype='float64')
-    #     stds = im.std(axis=(0, 1), dtype='float64')
-    #     mean = np.reshape(means, [3, 1])
-    #     std = np.reshape(stds, [3, 1])
-    #     norm_info['mean'] = (mean[0, 0], mean[1, 0], mean[2, 0])
-    #     norm_info['std'] = (std[0, 0], std[1, 0], std[2, 0])
-    #     with open(norm_save_path, 'w') as f:
-    #         json.dump(norm_info, f, sort_keys=True, indent=4)
+    all_samples = tqdm(all_samples)
+    for samples in all_samples:
+        norm_info = {}
+        norm_save_path = os.path.join(args.dataroot, 'norm_info', samples + '.json')
+        frame = flowsc.loadFrame(samples)
+        im = np.copy(frame.image)
+        im = im.astype('float64')
+        means = im.mean(axis=(0, 1), dtype='float64')
+        stds = im.std(axis=(0, 1), dtype='float64')
+        mean = np.reshape(means, [3, 1])
+        std = np.reshape(stds, [3, 1])
+        norm_info['mean'] = (mean[0, 0], mean[1, 0], mean[2, 0])
+        norm_info['std'] = (std[0, 0], std[1, 0], std[2, 0])
+        with open(norm_save_path, 'w') as f:
+            json.dump(norm_info, f, sort_keys=True, indent=4)
 
     # calcaute dataset image norm info
 
@@ -58,6 +59,6 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Convert radar point',
                                      formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('--dataroot', type=str,
-                        default='/media/reid/ext_disk1/dataset-1031')
+                        default='/media/reid/ext_disk1/waterscene_all')
     args = parser.parse_args()
     run(args.dataroot, args.dataroot)

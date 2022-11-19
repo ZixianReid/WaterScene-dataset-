@@ -6,12 +6,12 @@ from waterScene.visual import Visualization2D
 
 
 if __name__ == '__main__':
-    root_dir = "/media/reid/ext_disk1/dataset-1031"
+    root_dir = "/media/reid/ext_disk1/waterscene_all"
 
     source_location = WaterScene(root_dir=root_dir,
-                                    output_dir="/media/reid/ext_disk1/dataset-1031/projectionResult")
+                                    output_dir="/media/reid/ext_disk1/waterscene_all/projectionResult")
 
-    eles = os.listdir(os.path.join(root_dir, "image_2"))
+    eles = os.listdir(os.path.join(root_dir, "image"))
     eles = tqdm(eles)
     for ele in eles:
         nu = os.path.splitext(ele)[0]

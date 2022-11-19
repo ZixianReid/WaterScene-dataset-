@@ -47,7 +47,7 @@ def run(data_dir, out_dir):
         # categories = [{"id": 0, "name": "background"}, {"id": 1, "name": 'pier'}, {"id": 2, "name": 'buoy'},
         #               {"id": 3, "name": 'ship'}, {"id": 4, "name": 'boat'}]
         categories = [{"id": 1, "name": 'pier'}, {"id": 2, "name": 'buoy'},
-                      {"id": 3, "name": 'ship'}, {"id": 4, "name": 'boat'}]
+                      {"id": 3, "name": 'ship'}, {"id": 4, "name": 'boat'}, {"id": 5, "name": "vessel"}]
         ann_dict['images'] = images
         ann_dict['categories'] = categories
         ann_dict['annotations'] = annotations
@@ -74,6 +74,6 @@ def xyxy_to_polygn(xyxy_box):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Convert radar point',
                                      formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument('--dataroot', type=str, default='/media/reid/ext_disk1/dataset-1031')
+    parser.add_argument('--dataroot', type=str, default='/media/reid/ext_disk1/all')
     args = parser.parse_args()
     run(args.dataroot, args.dataroot)
