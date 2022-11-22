@@ -2,7 +2,7 @@ from waterScene.waterScene import WaterScene
 import xml.dom.minidom
 import os
 from tqdm import tqdm
-
+import argparse
 
 class ImageLabel:
     def __init__(self, path):
@@ -61,7 +61,11 @@ class ImageLabel:
 
 
 if __name__ == '__main__':
-    data_root = "/media/reid/ext_disk1/all"
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--data_root', type=str, default="/media/reid/ext_disk1/waterscene_all")
+
+    args = parser.parse_args()
+    data_root = args.data_root
     eles = os.listdir(os.path.join(data_root, "image"))
     flowsc = WaterScene(root_dir=data_root)
     eles = tqdm(eles)

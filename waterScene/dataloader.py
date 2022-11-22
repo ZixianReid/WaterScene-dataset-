@@ -65,7 +65,7 @@ class DataLoader:
         try:
             radar_file = os.path.join(self.source_location.radar_dir, f'{self.frame_number}.csv')
             scan = pandas.read_csv(radar_file, dtype=np.float32)
-            scan = scan[['x', 'y', 'z', 'rcs', 'doppler', 'u', 'v', 'label']]
+            scan = scan[['x', 'y', 'z', 'rcs', 'doppler', 'u', 'v', 'label', 'u', 'v']]
             return scan.to_numpy(dtype=np.float32)
 
         except FileNotFoundError:

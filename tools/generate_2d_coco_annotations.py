@@ -3,7 +3,7 @@ import argparse
 import os
 import json
 from waterScene.settings import LABEL_CODE_STR
-
+from tqdm import tqdm
 
 def run(data_dir, out_dir):
     flowsc = WaterScene(root_dir=args.dataroot)
@@ -17,7 +17,7 @@ def run(data_dir, out_dir):
         ann_dict = {}
         images = []
         annotations = []
-        for samples in samples_list:
+        for samples in tqdm(samples_list):
             image = dict()
             image['id'] = img_id
             img_id += 1
@@ -25,6 +25,8 @@ def run(data_dir, out_dir):
             image['height'] = 1080
             frame = flowsc.loadFrame(samples)
             image['file_name'] = frame.image_location
+            image['pc_file_name'] = frame.image_location.replace("image", 'radar').replace('jpg', 'csv')
+            image['pc_image_file_name'] = frame.image_location.replace("image", "imagepc").replace('jpg', 'png')
             images.append(image)
 
             labels = frame.label_data.label_dict
@@ -44,8 +46,6 @@ def run(data_dir, out_dir):
                 ann['segmentation'] = xyxy_to_polygn(xyxy_box)
                 annotations.append(ann)
 
-        # categories = [{"id": 0, "name": "background"}, {"id": 1, "name": 'pier'}, {"id": 2, "name": 'buoy'},
-        #               {"id": 3, "name": 'ship'}, {"id": 4, "name": 'boat'}]
         categories = [{"id": 1, "name": 'pier'}, {"id": 2, "name": 'buoy'},
                       {"id": 3, "name": 'ship'}, {"id": 4, "name": 'boat'}, {"id": 5, "name": "vessel"}]
         ann_dict['images'] = images
@@ -74,6 +74,6 @@ def xyxy_to_polygn(xyxy_box):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Convert radar point',
                                      formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument('--dataroot', type=str, default='/media/reid/ext_disk1/all')
+    parser.add_argument('--dataroot', type=str, default='/media/reid/ext_disk1/waterscene_all')
     args = parser.parse_args()
     run(args.dataroot, args.dataroot)

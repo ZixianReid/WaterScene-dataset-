@@ -6,6 +6,8 @@ import os
 import json
 from tqdm import tqdm
 
+
+#
 def run(data_dir, out_dir):
     flowsc = WaterScene(root_dir=args.dataroot)
     os.mkdir(os.path.join(args.dataroot, "norm_info"))
@@ -31,7 +33,7 @@ def run(data_dir, out_dir):
 
     # calcaute dataset image norm info
 
-    all_samples = [flowsc.getTrainFrame(),]
+    all_samples = [flowsc.getTrainFrame(), ]
     all_samples = sum(all_samples, [])
     num_item = 0
     json_name = 'gt_coco_train.json'
@@ -51,7 +53,7 @@ def run(data_dir, out_dir):
     norm_param['im_means'] = [item for item in pc_im_means]
     norm_param['im_stds'] = [item for item in pc_im_stds]
     with open(os.path.join(out_dir, 'norm_param_' + json_name),
-                  'w') as outfile:
+              'w') as outfile:
         outfile.write(json.dumps(norm_param))
 
 
