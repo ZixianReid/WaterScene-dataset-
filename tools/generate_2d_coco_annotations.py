@@ -11,7 +11,7 @@ def run(data_dir, out_dir):
     all_samples = [flowsc.getTrainFrame(), flowsc.getValtFrame(), flowsc.getTestFrame()]
     img_id = 0
     ann_id = 0
-    json_name = 'gt_coco_%s.json'
+    json_name = 'gt_cocosss__%s.json'
     for data_set, samples_list in zip(sets, all_samples):
         print(f"Starting {data_set}")
         ann_dict = {}

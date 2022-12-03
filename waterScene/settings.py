@@ -9,3 +9,10 @@ LABEL_CODE_STR = {"pier": 1,
                   "ship": 3,
                   "boat": 4,
                   "vessel": 5}
+
+
+CODE_LABEL_STR = {1: "pier",
+                  2: "buoy",
+                  3: "ship",
+                  4: "boat",
+                  5: "vessel"}
